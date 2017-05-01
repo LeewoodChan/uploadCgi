@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload File</title>
+    <link rel="stylesheet" type="text/css" media="all" href="styles.css" />
+
+    <style>
+        fieldset{
+            padding: 10px;
+            width: 400px;
+            margin: 100px auto 0 auto;
+        }
+        input{
+            margin: 5px;
+        }	
+    </style>
+</head>
+<body>
+    <form name="uploadForm" enctype="multipart/form-data" action="upload.cgi" method="post">
+        <fieldset>
+        <legend>Upload Files</legend>
+            <input type="hidden" id="MAX_FILE_SIZE" name="MAX_FILE_SIZE" vaule="300000" />
+            <div id="inputForm">
+                <label>Files to upload: </label>
+                <input type="file" name="filename[]" multiple="multiple"/><br />
+                <input type="reset" value="Clear" />
+                <input type="submit" value="Upload" />
+            </div>
+        </fieldset>
+    </form>
+</body>
+</html>
