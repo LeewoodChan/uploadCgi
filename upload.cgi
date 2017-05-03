@@ -23,35 +23,37 @@ class rFile(object):
 def mkDir():
     if not os.path.exists("files"):
         os.makedirs("files")
-        os.chmod("files", 0o755)
+        os.chmod("files", 0o777)
 
     global path
     newDir = binascii.hexlify(os.urandom(16)).decode()
     path = "files/" + newDir
     if not os.path.exists(path):
         os.makedirs(path)
-        os.chmod(path, 0o755)
+        os.chmod(path, 0o777)
 
 def mkJson(dictJson):
     newJson = path +  "/jsonFile.json"
     open(newJson, 'w').write(json.dumps(dictJson))
-    os.chmod(newJson, 0o755)
+    os.chmod(newJson, 0o777)
 
-def mkPage():
+def mkPage(dictJson):
+    newJson = json.dumps(dictJson)
     printPage = ("""<!DOCTYPE html>
 <html>
 <head>
     <title>Result Upload File</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+	<script> myJson = %s </script>
     <script type="text/javascript" src="../openJson.js"></script>
 </head>
 <body>
-    <ol id="myJson" rel="%s">Thank you for using this upload. Unforunately, the back end is not finish yet...</ol>
+    <p id="myJson" rel="%s">Thank you for using this upload. Unforunately, the back end is not finish yet...</p>
 </body>
-</html>"""%("jsonFile.json"))
+</html>"""%(newJson,"jsonFile.json"))
     newPage = path + "/result.html" 
     open(newPage, 'w').write(printPage)
-    os.chmod(newPage, 0o755)
+    os.chmod(newPage, 0o777)
 
 def getFile(checkFile):
     listing = os.listdir(path)
@@ -72,8 +74,8 @@ def getFile(checkFile):
     #    json.dump(file_dic, fJson)
 
     # call mkJson to make json file
-    mkJson(file_dic)
-    mkPage()
+    #mkJson(file_dic)
+    mkPage(file_dic)
 
 def main():
     message = ""

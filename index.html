@@ -3,30 +3,69 @@
 <head>
     <title>Upload File</title>
     <link rel="stylesheet" type="text/css" media="all" href="styles.css" />
-
+    <link rel="stylesheet" type="text/css" href="mainStyle.css"/>
+    <!--
     <style>
-        fieldset{
+        .uploadFile{
             padding: 10px;
             width: 400px;
-            margin: 100px auto 0 auto;
+            margin: 25px auto 25px auto;
+        }
+        .description{
+            padding 10px;
+            width: 50%;
+            margin: 50px auto 0 auto;
+        }
+        .requirement{
+            padding 10px;
+            width: 40%;
+            margin: 50px auto 0 auto;
+        }
+        h1,h3{
+            text-align:center;
+        }
+        hr{
+            width:70%;
         }
         input{
             margin: 5px;
+        }
+        #error{
+            font-weight:bold;
+            color:red;
         }	
     </style>
+    -->
 </head>
 <body>
-    <form name="uploadForm" enctype="multipart/form-data" action="upload.cgi" method="post">
-        <fieldset>
+    <h1>Test Upload File CGI</h1><hr style="width:30%;" />
+    <div class="description">
+        <h3>Descirption</h3>
+        <p>This website will get two or more txt files and store them into json, then display the content of each files. 
+        By using Python CGI(Common Gateway Interface) Script to read all the file have uploaded, and write a new json file and html file. 
+        Then redirect to new html which has a javascript function open the json file and print the output.</p>
+    </div>
+
+    <form name="uploadForm" enctype="multipart/form-data" action="upload.cgi" onsubmit="return validate_fileupload()"method="post">
+        <fieldset class="uploadFile">
         <legend>Upload Files</legend>
             <input type="hidden" id="MAX_FILE_SIZE" name="MAX_FILE_SIZE" vaule="300000" />
             <div id="inputForm">
                 <label>Files to upload: </label>
-                <input type="file" name="filename[]" multiple="multiple"/><br />
+                <input type="file" name="filename[]" id="filename[]" accept=".txt" multiple="multiple"/><br />
                 <input type="reset" value="Clear" />
                 <input type="submit" value="Upload" />
+                <span id="error"></span>
             </div>
         </fieldset>
-    </form>
+    </form><hr />
+    <div class="requirement">
+        <h3>Requirement</h3>
+        <ul>
+            <li>Please upload two or more files</li>
+            <li>This is only support txt file type</li>
+        </ul>
+    </div>
+    <script type="text/javascript" src="validate.js"></script>
 </body>
 </html>
